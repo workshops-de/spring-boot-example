@@ -1,0 +1,34 @@
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+   
+    <!-- no date, ansi colored, no file -->
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%X{user}] %highlight(%-5level) %highlight(%28.28logger) - %msg%n" />
+    
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    
+    <!-- für alle die nicht explizit unten als logger definiert sind, gilt dieses log level -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="de.workshops" level="debug" />
+
+    <!-- debug, info, warning, severe, off -->
+    <logger name="org.springframework" level="info" />
+
+    <logger name="org.springframework.jdbc.datasource.DriverManagerDataSource" level="warn"/>
+    <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="warn" />
+    <logger name="org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader" level="warn" />
+    <logger name="org.springframework.core.env.PropertySourcesPropertyResolver" level="warn" />
+    <logger name="org.springframework.core.env.MutablePropertySources" level="warn" />
+    <logger name="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" level="warn" />
+    
+    
+     <logger name="org.springframework.web" level="debug" />
+
+
+</configuration>
