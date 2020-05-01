@@ -18,17 +18,7 @@
     <logger name="de.workshops" level="debug" />
 
     <!-- debug, info, warning, severe, off -->
-    <logger name="org.springframework" level="info" />
-
-    <logger name="org.springframework.jdbc.datasource.DriverManagerDataSource" level="warn"/>
-    <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="warn" />
-    <logger name="org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader" level="warn" />
-    <logger name="org.springframework.core.env.PropertySourcesPropertyResolver" level="warn" />
-    <logger name="org.springframework.core.env.MutablePropertySources" level="warn" />
-    <logger name="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" level="warn" />
-    
-    
-     <logger name="org.springframework.web" level="debug" />
-
+<!--     <logger name="org.springframework" level="info" /> -->
+<!--     <logger name="org.springframework.web" level="debug" /> -->
 
 </configuration>
