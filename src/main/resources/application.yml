@@ -1,5 +1,27 @@
+server:
+  port: 8080
+  
+    
 logging:
   level:
     org.springframework: info
     org.springframework.web: debug
     web: debug
+    
+    
+bookdemo:
+    stringProp: a value with spaces
+    numProp: 42  
+    nested:
+        configParam: 23
+    
+---
+spring:
+  profiles: ci
+  
+server:
+  port: 8081
+  
+bookdemo:
+    stringProp: a NEW value with spaces
+    #numProp: 42
