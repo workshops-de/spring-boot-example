@@ -10,7 +10,7 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "bookdemo")
 public class ApplicationConfig {
 
-    private String stringProp;
+    private String stringprop;
     private Integer numProp;
     
     private NestedProps nested;

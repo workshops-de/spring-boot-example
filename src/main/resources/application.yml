@@ -10,7 +10,7 @@ logging:
     
     
 bookdemo:
-    stringProp: a value with spaces
+    stringprop: a value with spaces
     numProp: 42  
     nested:
         configParam: 23
@@ -23,5 +23,5 @@ server:
   port: 8081
   
 bookdemo:
-    stringProp: a NEW value with spaces
+    stringprop: a NEW value with spaces
     #numProp: 42

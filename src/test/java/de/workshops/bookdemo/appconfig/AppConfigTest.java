@@ -14,7 +14,7 @@ public class AppConfigTest {
     
     @Test
     void testAppConfig() throws Exception {
-        assertEquals("a value with spaces", appConfig.getStringProp());
+        assertEquals("a value with spaces", appConfig.getStringprop());
         assertEquals(42, appConfig.getNumProp());
         assertEquals("23", appConfig.getNested().getConfigParam());
     }

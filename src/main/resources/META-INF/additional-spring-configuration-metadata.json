@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "bookdemo.stringprop",
+      "type": "java.lang.String",
+      "description": "string prop 2."
+    }, 
+    {
+      "name": "bookdemo.num-prop",
+      "type": "java.lang.Integer",
+      "description": "int prop."
+    }
+  ]
+}
