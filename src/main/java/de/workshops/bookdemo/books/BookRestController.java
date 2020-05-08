@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +33,17 @@ public class BookRestController {
     public Book getSingleBooks(@PathVariable(required = true, name = "isbn") String isbn) throws Exception {
         return bookService.loadSingle(isbn)
                 .orElseThrow(() -> new BookException(String.format("isbn %s not found", isbn)));
+    }
+
+    @PostMapping
+    public Book createBook(@RequestBody(required = true) Book book) throws Exception {
+        return bookService.createBook(book);
+    }
+
+    @PostMapping(path = "/{isbn}")
+    public Book updateBook(@PathVariable(required = true, name = "isbn") String isbn, 
+            @RequestBody(required = true) Book book) throws Exception {
+        return bookService.createBook(book);
     }
     
     

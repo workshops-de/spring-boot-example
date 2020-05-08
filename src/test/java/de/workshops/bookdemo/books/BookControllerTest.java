@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -93,5 +95,36 @@ public class BookControllerTest {
         given().log().all().when().get(BookRestController.REQUEST_URL).then().log().all().body("[1].title", equalTo("Clean Code"));
     }
     
-    
+    @Test
+    public void testCreateBooks() throws Exception {
+        Book book = Book.builder()
+                .title("New Book")
+                .author("The Author")
+                .description("content")
+                .isbn("1234567890")
+                .build();
+        mockMvc.perform(post(BookRestController.REQUEST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(book)))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.title", is("New Book")));
+    }
+
+    @Test
+    public void testUpdateBooks() throws Exception {
+        Book book = Book.builder()
+                .title("New Book")
+                .author("The Author")
+                .description("content")
+                .isbn("1234567890")
+                .build();
+        mockMvc.perform(post(BookRestController.REQUEST_URL + "/abc")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(book)))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.title", is("New Book")));
+    }
+
 }

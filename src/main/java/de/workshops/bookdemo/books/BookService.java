@@ -24,5 +24,9 @@ public class BookService {
     public Optional<Book> loadSingle(String isbn) throws Exception {
         return bookRepository.findByIsbn(isbn);
     }
+
+    public Book createBook(Book book) {
+        return bookRepository.create(book);
+    }
     
 }
