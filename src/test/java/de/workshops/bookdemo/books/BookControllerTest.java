@@ -1,6 +1,9 @@
 package de.workshops.bookdemo.books;
 
 
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,6 +85,11 @@ public class BookControllerTest {
         Book[] books = mapper.readValue(jsonPayload, Book[].class);
         assertNotNull(books);
         assertEquals(3, books.length);
+    }
+    
+    @Test
+    public void testWithRestAssured() {
+        when().get(BookRestController.REQUEST_URL).then().body("[1].title", equalTo("Clean Code"));
     }
     
     
