@@ -1,6 +1,7 @@
 package de.workshops.bookdemo.books;
 
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -89,7 +90,7 @@ public class BookControllerTest {
     
     @Test
     public void testWithRestAssured() {
-        when().get(BookRestController.REQUEST_URL).then().body("[1].title", equalTo("Clean Code"));
+        given().log().all().when().get(BookRestController.REQUEST_URL).then().log().all().body("[1].title", equalTo("Clean Code"));
     }
     
     
