@@ -7,13 +7,19 @@ logging:
     org.springframework: info
     org.springframework.web: debug
     web: debug
-    
+
+spring:
+  security:
+    user:
+      name: dominik
+      password: pass    
     
 bookdemo:
     stringprop: a value with spaces
     numProp: 42  
     nested:
         configParam: 23
+    
     
 ---
 spring:
