@@ -5,6 +5,7 @@ server:
 logging:
   level:
     org.springframework: info
+    org.springframework.security: debug
     org.springframework.web: debug
     web: debug
 

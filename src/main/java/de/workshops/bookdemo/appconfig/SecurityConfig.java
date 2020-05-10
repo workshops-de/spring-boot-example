@@ -1,9 +1,21 @@
 package de.workshops.bookdemo.appconfig;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -11,16 +23,64 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.inMemoryAuthentication()
-           .withUser("user").password("password").roles("USER").and()
-           .withUser("admin").password("password").roles("USER", "ADMIN");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//       auth.inMemoryAuthentication()
+//           .withUser("user").password("password").roles("USER").and()
+//           .withUser("admin").password("password").roles("USER", "ADMIN");
+//    }
     
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        // return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
+    
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+
+            private final List<User> users = Arrays.asList(
+                    new User("alice", "$2a$10$jUkm.4VL3Iz7d3fJSQdPtOVi55BrSChHtQn5ZhYsf4krs7aHq/Ikq", Arrays.asList(new SimpleGrantedAuthority("ADMIN"))),
+                    new User("bob", "$2a$10$EgCeWCCt.GuatXOX8yUchOSI1u.dazAOdshg/hJzcKKNskfyeL6Ta", Arrays.asList(new SimpleGrantedAuthority("USER"))));
+            
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return users.stream()
+                    .filter(user -> user.getUsername().equals(username))
+                    .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+                        if (list.size() ==  0) {
+                            throw new UsernameNotFoundException(username);
+                        }
+                        // deep copy notwendig
+                        User result = list.get(0);
+                        return new User(result.getUsername(), result.getPassword(), result.getAuthorities());
+                    }));
+            }
+        };
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .httpBasic()
+                .and()
+            .formLogin()
+                .usernameParameter("user")
+                .passwordParameter("pass")
+                .and()
+            .authorizeRequests()
+                .antMatchers("/**").authenticated()
+                .and()
+            .csrf().disable();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/actuator/**");
+    }
+    
+    
+
     
 }
