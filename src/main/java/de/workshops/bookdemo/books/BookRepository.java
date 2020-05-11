@@ -26,7 +26,7 @@ public class BookRepository {
     
     
     public List<Book> findAll() throws Exception {
-        books = Arrays.asList(mapper.readValue(new File("target/classes/books.json"), Book[].class));
+        books.addAll(Arrays.asList(mapper.readValue(new File("target/classes/books.json"), Book[].class)));
         return books;
     }
 
