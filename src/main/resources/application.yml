@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   
     
 logging:
@@ -14,12 +14,18 @@ spring:
     user:
       name: dominik
       password: pass    
-    
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 148971885543-co9dv22tjamh7amdonnqod69dsd721rp.apps.googleusercontent.com
+            client-secret: mXAtT6Ze7M7mK_KCb5VEyJSY    
 bookdemo:
     stringprop: a value with spaces
     numProp: 42  
     nested:
         configParam: 23
+
     
     
 ---
