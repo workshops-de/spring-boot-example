@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +62,8 @@ public class BookControllerTest {
     
     @Test
     public void testGetAllBooks() throws Exception {
-        List<Book> books = bookRestController.getAllBooks();
+        List<Book> books = new ArrayList<Book>();
+        bookRestController.getAllBooks().forEach(books::add);
         assertNotNull(books);
         assertTrue(books.size() >= 3);
     }

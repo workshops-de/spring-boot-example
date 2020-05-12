@@ -26,7 +26,7 @@ public class BookRestController {
     
     
     @GetMapping
-    public List<Book> getAllBooks() throws Exception {
+    public Iterable<Book> getAllBooks() throws Exception {
         return bookService.loadAll();
     }
 
@@ -37,7 +37,7 @@ public class BookRestController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public Book createBook(@RequestBody(required = true) Book book) throws Exception {
         return bookService.createBook(book);
     }

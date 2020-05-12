@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Repository
+//@Repository
 public class BookRepository {
 
     @NonNull

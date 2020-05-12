@@ -13,6 +13,7 @@ logging:
 
 spring:
   security:
+    
     user:
       name: dominik
       password: pass    
@@ -22,7 +23,6 @@ spring:
           google:
             client-id: 148971885543-co9dv22tjamh7amdonnqod69dsd721rp.apps.googleusercontent.com
             client-secret: mXAtT6Ze7M7mK_KCb5VEyJSY    
-
 
   boot:
     admin:
@@ -40,6 +40,20 @@ spring:
             user.name: adminServer
             user.password: 9Gu0h^zG#divv1#e
 
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    
+  h2:
+    console:
+      enabled: true
+      
 management.endpoints.web.exposure.include: "*"
 
 bookdemo:

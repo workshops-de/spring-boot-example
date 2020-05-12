@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 public class BookService {
 
     @NonNull
-    private BookRepository bookRepository;
+    private BookDBRepository bookRepository;
 
-    public List<Book> loadAll() throws Exception {
+    public Iterable<Book> loadAll() throws Exception {
         return bookRepository.findAll();
     }
 
@@ -26,7 +26,7 @@ public class BookService {
     }
 
     public Book createBook(Book book) {
-        return bookRepository.create(book);
+        return bookRepository.save(book);
     }
     
 }

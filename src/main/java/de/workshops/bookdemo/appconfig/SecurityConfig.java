@@ -92,12 +92,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/**").authenticated()
                 .and()
-            .csrf().disable();
+            .csrf().disable()
+            .headers()
+                .frameOptions().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/actuator/**");
+        web.ignoring()
+            .antMatchers("/actuator/**")
+            .antMatchers("/h2-console");
     }
     
     
