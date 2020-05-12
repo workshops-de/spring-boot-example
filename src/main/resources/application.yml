@@ -1,6 +1,8 @@
 server:
   port: 8081
-  
+
+  servlet:
+    context-path: /api  
     
 logging:
   level:
@@ -20,6 +22,26 @@ spring:
           google:
             client-id: 148971885543-co9dv22tjamh7amdonnqod69dsd721rp.apps.googleusercontent.com
             client-secret: mXAtT6Ze7M7mK_KCb5VEyJSY    
+
+
+  boot:
+    admin:
+      client:
+        enabled: false
+        #url: https://adminserver.todo42.de
+        url: http://localhost:8888
+        username: test
+        password: test
+        instance:
+          name: bookdemo-prepared
+          management-base-url: http://localhost:8081/api
+          service-base-url: http://localhost:8081
+          metadata:
+            user.name: adminServer
+            user.password: 9Gu0h^zG#divv1#e
+
+management.endpoints.web.exposure.include: "*"
+
 bookdemo:
     stringprop: a value with spaces
     numProp: 42  
